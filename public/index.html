@@ -1,21 +1,80 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-screen="entry">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ai-HR</title>
-  <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; font: 16px/1.5 system-ui, sans-serif; background: #fafafa; color: #222; }
-    @media (prefers-color-scheme: dark) { body { background: #151515; color: #ddd; } }
-    main { text-align: center; padding: 16px; }
-    h1 { margin: 0 0 8px; font-size: 28px; }
-    p { margin: 0; opacity: .6; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>ai-HR — тренажёр собеседований</title>
+  <meta name="description" content="ИИ проводит собеседование на вашу должность и грейд, а потом разбирает каждый ответ рядом с эталоном.">
+  <meta name="theme-color" content="#0d0f0e" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#e8e3d7" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/golos-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/spectral-300.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/pt-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/room.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/dossier.css">
+  <link rel="stylesheet" href="/css/print.css" media="print">
+  <script type="module" src="/js/app.js"></script>
 </head>
 <body>
-  <main>
-    <h1>ai-HR</h1>
-    <p>Проект создан. Здесь скоро появится сайт.</p>
+  <div id="room" aria-hidden="true">
+    <div class="wall"></div>
+    <div class="blinds"></div>
+    <div class="table"></div>
+    <div class="cone"></div>
+    <div class="pool"></div>
+    <svg class="lamp" viewBox="0 0 120 70"><path d="M58 0h4v16h-4z" class="cord"/><path d="M30 38 C34 20 86 20 90 38 L104 62 H16 Z" class="shade"/><ellipse cx="60" cy="62" rx="44" ry="5" class="rim"/><ellipse cx="60" cy="63" rx="16" ry="4" class="bulb"/></svg>
+    <div class="ceiling"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+  </div>
+
+  <p class="demo-bar mono caps" id="demo-bar" hidden data-i18n="demo">ДЕМО · интервьюер не настоящий</p>
+
+  <header class="top">
+    <button type="button" class="logo mono" id="top-home">ai-hr</button>
+    <div class="top-right">
+      <div class="lang-switch mono" id="top-lang" role="group" aria-label="Язык интерфейса">
+        <button type="button" data-lang="ru">RU</button><span aria-hidden="true">·</span><button type="button" data-lang="uz">UZ</button>
+      </div>
+      <button type="button" class="link-btn" id="top-archive" hidden></button>
+    </div>
+  </header>
+
+  <main id="app">
+    <section class="screen" data-screen="entry"></section>
+    <section class="screen" data-screen="setup" hidden></section>
+    <section class="screen" data-screen="interview" hidden></section>
+    <section class="screen" data-screen="reviewing" hidden></section>
+    <section class="screen" data-screen="dossier" hidden></section>
+    <section class="screen" data-screen="archive" hidden></section>
   </main>
+
+  <footer class="foot no-print">
+    <button type="button" class="link-btn" id="privacy-open" data-i18n="privacy.link">Что происходит с ответами</button>
+  </footer>
+
+  <div id="live" class="sr-only" aria-live="polite"></div>
+
+  <dialog id="confirm" class="dialog">
+    <form method="dialog">
+      <h2 id="confirm-title" class="dialog-title"></h2>
+      <p id="confirm-text"></p>
+      <div id="confirm-actions" class="dialog-actions"></div>
+    </form>
+  </dialog>
+
+  <dialog id="privacy" class="dialog">
+    <form method="dialog">
+      <h2 class="dialog-title" data-i18n="privacy.link">Что происходит с ответами</h2>
+      <p data-i18n="privacy.text"></p>
+      <div class="dialog-actions"><button class="btn btn-primary" value="cancel" data-i18n="privacy.close">Понятно</button></div>
+    </form>
+  </dialog>
+
+  <noscript><p class="noscript">Для тренажёра нужен JavaScript.</p></noscript>
 </body>
 </html>

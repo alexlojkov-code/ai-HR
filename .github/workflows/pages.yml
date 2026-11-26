@@ -1,4 +1,6 @@
-# Демо-версия: публикует папку public/ на GitHub Pages при каждом push в main.
+# Демо: публикует public/ на GitHub Pages при каждом push в main.
+# На Pages сайт живёт в /ai-HR/, а интервьюер работает на заготовках (SPEC §3.6),
+# поэтому абсолютные пути к файлам переписываются под подпапку.
 name: Deploy demo to GitHub Pages
 
 on:
@@ -23,9 +25,21 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm test
+      - run: npm run check
+      - name: Собрать демо под /ai-HR/
+        run: |
+          cp -r public _site
+          BASE="/${GITHUB_REPOSITORY#*/}"
+          sed -i "s#\(href\|src\)=\"/#\1=\"$BASE/#g" _site/index.html
+          sed -i "s#url('/fonts/#url('$BASE/fonts/#g" _site/css/tokens.css
+          cp _site/index.html _site/404.html
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: public
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v5

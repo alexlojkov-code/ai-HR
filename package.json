@@ -6,6 +6,9 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "node server.mjs"
+    "dev": "node server.mjs",
+    "test": "LOG_LEVEL=error node --test \"tests/*.test.js\"",
+    "check": "node scripts/check.mjs",
+    "spike": "node scripts/spike.mjs"
   }
 }

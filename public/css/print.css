@@ -1,0 +1,9 @@
+/* Печать досье в PDF (SPEC §7.4): белая бумага, без комнаты и анимаций. */
+#room, .top, .foot, .demo-bar, .no-print, .qnav, .screen:not([data-screen="dossier"]) { display: none !important; }
+html, body { background: #fff !important; color: #000 !important; }
+main { max-width: none; padding: 0; }
+.paper { box-shadow: none !important; background: #fff !important; max-width: none; padding: 0; animation: none !important; }
+.stamp { animation: none !important; opacity: .9 !important; }
+.item { break-inside: avoid; page-break-inside: avoid; }
+.paper-head { break-after: avoid; }
+@page { margin: 16mm; }

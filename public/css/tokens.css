@@ -1,0 +1,85 @@
+/* Токены (DESIGN §4–5). Тема задаётся стилем собеседования: data-room="lamp" (грубый) / "blinds" (вежливый). */
+
+@font-face { font-family: 'Golos Text'; src: url('/fonts/golos-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Golos Text'; src: url('/fonts/golos-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Spectral'; src: url('/fonts/spectral-300.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Spectral'; src: url('/fonts/spectral-400i.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'PT Mono'; src: url('/fonts/pt-mono.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+
+:root {
+  --f-ui: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-voice: 'Spectral', Georgia, 'Times New Roman', serif;
+  --f-mono: 'PT Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --radius: 3px;
+  --ease-light: cubic-bezier(.2, .7, .2, 1);
+  --ease-hard: cubic-bezier(.7, 0, .2, 1);
+
+  /* Бумага досье и бланка — одинакова в обеих темах (DESIGN §4.3). */
+  --paper: #efe9da;
+  --paper-ink: #24231f;
+  --paper-dim: #5c584e;
+  --paper-line: #c9c0ad;
+  --carbon: #2c3f78;
+  --stamp-red: #b8321f;
+  --stamp-blue: #2b47a0;
+  --stamp-amber: #9a6a12;
+  --kraft: #b8935a;
+  --kraft-dark: #8e6d3c;
+
+  /* «Жалюзи» — по умолчанию (светлая). */
+  --wall: #e8e3d7;
+  --table: #d8d1c2;
+  --lamp: #fff9ea;
+  --ink: #1c1e1d;
+  --ink-dim: #5e5c55;
+  --line: #c2baa9;
+  --accent: #2f5d50;
+  --accent-ink: #f4f0e6;
+  --alarm: #b23a26;
+  --shadow: rgba(60, 50, 30, .22);
+  --iris-blade: #8f887c;
+  --iris-edge: #f4eedd;
+  --iris-light: #fff7e0;
+  --iris-rim: #6f695f;
+  color-scheme: light;
+}
+
+/* До выбора стиля тема следует системе. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-room]) {
+    --wall: #0d0f0e; --table: #171917; --lamp: #f6e7c1; --ink: #eae4d3; --ink-dim: #8e8b80; --line: #2a2d2a;
+    --accent: #f6e7c1; --accent-ink: #0d0f0e; --alarm: #d9472f; --shadow: rgba(0, 0, 0, .7);
+    --iris-blade: #1b1d1c; --iris-edge: #f6e7c1; --iris-light: #fff6df; --iris-rim: #2a2d2a;
+    color-scheme: dark;
+  }
+}
+
+/* «Лампа» (грубый, тёмная). */
+:root[data-room="lamp"] {
+  --wall: #0d0f0e;
+  --table: #171917;
+  --lamp: #f6e7c1;
+  --ink: #eae4d3;
+  --ink-dim: #8e8b80;
+  --line: #2a2d2a;
+  --accent: #f6e7c1;
+  --accent-ink: #0d0f0e;
+  --alarm: #d9472f;
+  --shadow: rgba(0, 0, 0, .7);
+  --iris-blade: #1b1d1c;
+  --iris-edge: #f6e7c1;
+  --iris-light: #fff6df;
+  --iris-rim: #2a2d2a;
+  color-scheme: dark;
+}
+
+/* Жёсткость света по уровню (DESIGN §3.2). */
+:root, :root[data-level="medium"] { --beam-w: 54vw; --beam-soft: 22%; --vignette: .55; --grain: .03; --slat-on: 21px; --slat-period: 46px; --slat-alpha: 55%; }
+:root[data-level="gentle"] { --beam-w: 72vw; --beam-soft: 40%; --vignette: .30; --grain: 0; --slat-on: 37px; --slat-period: 58px; --slat-alpha: 45%; }
+:root[data-level="hard"] { --beam-w: 38vw; --beam-soft: 8%; --vignette: .80; --grain: .06; --slat-on: 8px; --slat-period: 36px; --slat-alpha: 80%; }
+
+@media (max-width: 640px) {
+  :root, :root[data-level="medium"] { --beam-w: 96vw; }
+  :root[data-level="gentle"] { --beam-w: 120vw; }
+  :root[data-level="hard"] { --beam-w: 74vw; }
+}

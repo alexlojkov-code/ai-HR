@@ -1,0 +1,91 @@
+/* Досье — лист бумаги (DESIGN §7.5). */
+
+.paper {
+  position: relative;
+  max-width: 920px; margin: 8px auto 0;
+  padding: clamp(20px, 4.5vw, 52px);
+  background: radial-gradient(ellipse 130% 70% at 50% 0%, var(--paper) 60%, color-mix(in srgb, var(--paper) 88%, #000) 100%);
+  border-radius: 2px;
+  box-shadow: 0 30px 70px -28px var(--shadow), 0 2px 6px -2px var(--shadow);
+}
+.paper.arrive { animation: unfold .55s var(--ease-light) both; }
+@keyframes unfold { from { opacity: 0; transform: translateY(14px) scaleY(.97); transform-origin: top; } to { opacity: 1; transform: none; } }
+
+.paper-head { display: grid; grid-template-columns: 1fr auto; gap: 16px 32px; align-items: start; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.case-no { margin: 0 0 10px; font-size: 12px; color: var(--paper-dim); }
+.candidate { margin: 0 0 6px; font-size: 18px; }
+.candidate strong { font-weight: 600; }
+.meta { margin: 0; font-size: 12px; color: var(--paper-dim); }
+
+.verdict { display: grid; justify-items: center; gap: 6px; width: min(300px, 38vw); }
+.stamp {
+  display: block; width: 100%;
+  overflow: visible;
+  color: var(--stamp-red);
+  opacity: var(--ink, .88);
+  transform: rotate(var(--rot, -4deg));
+  mix-blend-mode: multiply;
+}
+.stamp text { fill: currentColor; font: 600 44px var(--f-ui); letter-spacing: .06em; }
+.stamp-hired { color: var(--stamp-blue); }
+.stamp-rework { color: var(--stamp-amber); }
+.stamp-rejected { color: var(--stamp-red); }
+.stamp-wrap.drop .stamp { animation: stamp .26s cubic-bezier(.5, 0, .75, 0) .15s both; }
+@keyframes stamp {
+  from { opacity: 0; transform: rotate(var(--rot)) scale(1.6); }
+  80% { opacity: .7; transform: rotate(var(--rot)) scale(1); }
+  to { opacity: var(--ink); transform: rotate(var(--rot)) scale(1); }
+}
+.total { margin: 0; font-size: 14px; color: var(--paper-dim); }
+.total strong { font-size: 34px; font-weight: 400; color: var(--paper-ink); }
+
+.characteristic { padding: 22px 0 4px; }
+.characteristic p { margin: 6px 0 0; font: italic 400 clamp(18px, 2.4vw, 22px)/1.45 var(--f-voice); }
+.paper h3 { margin: 0; font-size: 12px; font-weight: 400; color: var(--paper-dim); }
+.two-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; padding: 18px 0 8px; }
+.col-list ul { margin: 8px 0 0; padding-left: 1.1em; }
+.col-list li { margin: 3px 0; }
+
+.protocol-title { padding-top: 26px; }
+.qnav { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 0 4px; }
+.qnav a {
+  min-width: 36px; min-height: 36px; display: grid; place-items: center;
+  font-size: 14px; color: var(--paper-ink); text-decoration: none;
+  border: 1.5px solid currentColor; border-radius: 3px;
+}
+.qnav a.score-hi { color: var(--stamp-blue); }
+.qnav a.score-mid { color: var(--stamp-amber); }
+.qnav a.score-lo { color: var(--stamp-red); }
+
+.item { padding: 24px 0 10px; border-top: 1px dashed var(--line); margin-top: 18px; scroll-margin-top: 16px; }
+.item-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; color: var(--paper-dim); }
+.score { font-size: 22px; letter-spacing: 0; }
+.score-hi { color: var(--stamp-blue); }
+.score-mid { color: var(--stamp-amber); }
+.score-lo { color: var(--stamp-red); }
+.item-q { margin: 8px 0 16px; font: 300 clamp(19px, 2.4vw, 23px)/1.35 var(--f-voice); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; }
+.cols h4 { margin: 0 0 8px; font-size: 11px; font-weight: 400; color: var(--paper-dim); }
+.testimony { border-left: 2px solid #a39b8a; padding-left: 14px; }
+.testimony .cand { margin: 0 0 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.testimony .iv { margin: 0 0 8px; font: italic 400 15px/1.45 var(--f-voice); color: var(--paper-dim); }
+.reference { color: var(--carbon); }
+.reference p { margin: 0; text-shadow: .6px .5px 0 color-mix(in srgb, var(--carbon) 30%, transparent); white-space: pre-wrap; }
+.points { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13px; }
+.points .ok .mark { color: var(--stamp-blue); }
+.points .miss { color: var(--stamp-red); }
+.why { margin: 10px 0 0; font-size: 15px; }
+.why .mono { font-size: 13px; color: var(--paper-dim); }
+
+.study { padding: 24px 0 0; border-top: 1px dashed var(--line); margin-top: 18px; }
+.study ol { margin: 8px 0 0; padding-left: 1.4em; }
+.study li { margin: 4px 0; }
+
+.paper-actions { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 28px; margin-top: 18px; border-top: 1px solid var(--line); }
+
+@media (max-width: 760px) {
+  .paper-head { grid-template-columns: 1fr; }
+  .verdict { width: min(260px, 80%); justify-self: center; margin-top: 4px; }
+  .two-lists, .cols { grid-template-columns: 1fr; }
+  .paper-actions .btn { flex: 1 1 calc(50% - 8px); }
+}
