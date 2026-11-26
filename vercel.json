@@ -5,7 +5,9 @@
   "outputDirectory": "public",
   "cleanUrls": false,
   "functions": {
-    "api/*.js": { "maxDuration": 25 },
+    "api/start.js": { "maxDuration": 25 },
+    "api/turn.js": { "maxDuration": 25 },
+    "api/health.js": { "maxDuration": 5 },
     "api/review.js": { "maxDuration": 60 }
   },
   "rewrites": [
